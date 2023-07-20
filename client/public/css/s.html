@@ -1,0 +1,134 @@
+<!-- <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+  </li>
+</ul>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+crossorigin="anonymous"></script>
+
+
+//if user adds a note, add it to the localstorage
+showNotes();// whenever we reload the page we are calling show notes to show the notes
+
+let addBtn = document.getElementById(`addBtn`);
+addBtn.addEventListener(`click`, function (e) {
+    let addTxt = document.getElementById(`addTxt`);
+    let addtitle=document.getElementById('title');
+
+
+    let notes = localStorage.getItem(`notes`);// here "notes" is a key not an id
+
+    if (notes == null ) {
+        notesObj = [];
+    }
+   
+    else {
+        notesObj = JSON.parse(notes);// make an array
+    }
+
+    notesObj.push(addTxt.value);// pushing the notes into the array
+    
+    localStorage.setItem('notes',JSON.stringify(notesObj));
+    addTxt.value = "";// making the added text blank to write again
+
+    showNotes();
+
+});
+
+
+
+
+function showNotes() {
+    let notes = localStorage.getItem(`notes`);// here "notes" is a key not an id
+
+    if (notes == null ) {
+        notesObj = [];
+    }
+    
+
+
+
+    else {
+        notesObj = JSON.parse(notes);// make an array
+    }
+
+    let html = "";
+    notesObj.forEach(function (element,index) {
+        html = html + `
+        <div class="noteCard my-2 mx-3 card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Note ${index+1}</h5>
+          <p class="card-text">${element}</p>
+          <button id=${index + 1} onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
+        </div>
+      </div>
+        `;// here we are giving delete button an id which is it's index and onclick is an event which fires when user clicks on the element (this is an invoking object)
+    });
+
+    let notesElm = document.getElementById("notes");// here  notes is not a key but an id
+    if (notesObj.length != 0) {
+        notesElm.innerHTML = html;
+    }
+
+    else {
+        notesElm.innerHTML = `nothing to show !! use 'Add a note' section to add notes`
+    }
+
+}
+
+
+function deleteNote(index) {
+    
+    let notes = localStorage.getItem(`notes`);
+
+    if (notes == null) {
+        notesObj = [];
+    }
+
+    else {
+        notesObj = JSON.parse(notes);
+    }
+
+    notesObj.splice(index-1,1);
+    localStorage.setItem("notes",JSON.stringify(notesObj));// updating the local storage
+
+    showNotes();
+
+
+}
+
+let search= document.getElementById("searchTxt");
+search.addEventListener(`input`,function(){
+    let inputval=search.value;
+    let noteCards=document.getElementsByClassName("noteCard");
+    Array.from(noteCards).forEach(function(element){
+        let cardTxt=element.getElementsByTagName(`p`)[0];
+        if(cardTxt.includes(inputval)){
+            element.style.display='block';
+        }
+        else{
+            element.style.display='none';
+        }
+
+    });
+
+}); -->
