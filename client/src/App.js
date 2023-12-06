@@ -13,7 +13,9 @@ import Alert from './components/Alert';
 
 
 function App() {
-  
+  window.addEventListener('beforeunload', function(event) {
+    localStorage.clear();
+  });
   return (
     <>
       <Bankstate>

@@ -49,7 +49,6 @@ router.get('/fetchtransactions', fetchuser, async (req, res) => {
         
 
         res.json(transactions);
-        // res.json({ transactions_paid, transactions_recieved });
 
     } catch (error) {
         console.error(error.message);

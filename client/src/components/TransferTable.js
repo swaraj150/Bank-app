@@ -4,10 +4,8 @@ import Bankcontext from "../context/Bankcontext";
 
 function TransferTable() {
     const context = useContext(Bankcontext);
-    // let flag=false;
     const { showalert,allTransactionsOfUser,transactionsList } = context;
     let flag=useRef(false)
-    // const transactions_paid=transactionsList.transactions_paid;
     console.log(transactionsList[0])
     useEffect(()=>{
         if(localStorage.getItem("auth-token")==null){
@@ -35,8 +33,6 @@ function TransferTable() {
                 <tbody>
 
                     {flag.current==false && transactionsList?.map((item,i)=>{
-                        // console.log(item)
-                        // console.log(flag)
                         var amount;
                         var account;
                         var name;

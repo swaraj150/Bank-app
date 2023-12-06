@@ -8,6 +8,7 @@ const { findOne } = require('../models/Customer');
 const fetchuser=require("../middleware/fetchuser")
 
 const JWT_SECRET="Swaraj$andhale@19";
+const expiresIn = '1d';
 // Route 1: Creating a new user using POST "api/create/createuser": no login required
 router.post("/createuser",[
     body("name","Enter a Valid Name").isLength({min:3}),
@@ -41,7 +42,7 @@ router.post("/createuser",[
             id:user.id
         }
     }
-    const authtoken=jwt.sign(data,JWT_SECRET);
+    const authtoken=jwt.sign(data,JWT_SECRET,{expiresIn});
     success=true;
     
     res.json({success,authtoken});
@@ -78,7 +79,7 @@ router.post("/login",[
                 id:user.id
             }
         }
-        const authtoken=jwt.sign(data,JWT_SECRET);
+        const authtoken=jwt.sign(data,JWT_SECRET,{expiresIn});
         success=true;
         res.json({success,authtoken});
     } catch (error) {
